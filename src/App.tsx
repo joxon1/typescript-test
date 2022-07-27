@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import ApiPages from "./pages/ApiPages";
 import NumberPages from "./pages/NumberPages";
 import TodoPages from "./pages/TodoPages";
-
 const App: FC = () => {
   return (
     <>

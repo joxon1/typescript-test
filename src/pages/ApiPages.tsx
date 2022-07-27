@@ -6,21 +6,40 @@ import { IApi } from "../types/types";
 
 const ApiPages = () => {
   const [infor, setInfor] = useState<IApi[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
-    fetchInfor();
+    if (fetching) {
+      axios
+        .get<IApi[]>(
+          `https://jsonplaceholder.typicode.com/photos?_limit=200&_page=${currentPage}`
+        )
+        .then((response) => {
+          setInfor([...infor, ...response.data]);
+          setCurrentPage((prevState) => prevState + 1);
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
+
+  useEffect(() => {
+    let apiList = document.querySelector(".apiList");
+    apiList?.addEventListener("scroll", scrollHandler);
+    return function () {
+      apiList?.removeEventListener("scroll", scrollHandler);
+    };
   }, []);
 
-  async function fetchInfor() {
-    try {
-      const response = await axios.get<IApi[]>(
-        "https://jsonplaceholder.typicode.com/photos?_limit=200&_page=1"
-      );
-      setInfor(response.data);
-    } catch (e) {
-      alert(e);
+  const scrollHandler = () => {
+    let apiList = document.querySelector(".apiList");
+    if (
+      apiList!.scrollHeight - (apiList!.scrollTop + window.innerHeight) <
+      200
+    ) {
+      setFetching(true);
     }
-  }
+  };
 
   return (
     <List

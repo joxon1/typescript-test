@@ -12,5 +12,5 @@ const ApiList = styled.div`
 `;
 
 export default function List<T>(props: ListProps<T>) {
-  return <ApiList>{props.items.map(props.renderItems)}</ApiList>;
+  return <div className="apiList" >{props.items.map(props.renderItems)}</div>;
 }
