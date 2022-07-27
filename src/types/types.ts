@@ -11,5 +11,5 @@ export interface INum {
 export interface IApi {
   id: number;
   title: string;
-  url: string;
+  url?: string;
 }
