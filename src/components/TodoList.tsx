@@ -1,6 +1,5 @@
 import React, { FC, useRef, useState } from "react";
 import styled from "styled-components";
-import { ITodo } from "../types/types";
 
 const FormBox = styled.form`
   margin-top: 1rem;

@@ -16,10 +16,12 @@ const ApiPages = () => {
           `https://jsonplaceholder.typicode.com/photos?_limit=200&_page=${currentPage}`
         )
         .then((response) => {
-          setInfor([...infor, ...response.data]);
           setCurrentPage((prevState) => prevState + 1);
+          setInfor([...infor, ...response.data]);
         })
-        .finally(() => setFetching(false));
+        .finally(() => {
+          setFetching(false);
+        });
     }
   }, [fetching]);
 
